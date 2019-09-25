@@ -31,51 +31,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </header>
 
 <div class="w3-row-padding w3-padding-64 w3-container">
-    <div class="w3-card-4" style="width:30%">
-        <div class="w3-container w3-center">
-                <p>Picture 1</p>
+<%  tags.forEach(tag => { %>
+    <% tag.Stories.forEach(story => { %>
+        <div class="w3-card-4" style="width:30%">
+            <div class="w3-container w3-center">
+                    <%= story.content%>>
+            </div>
         </div>
-    </div>
-    <div class="w3-card-4" style="width:30%">
-        <div class="w3-container w3-center">
-                <p>Picture 2</p>
-        </div>
-    </div>
-    <div class="w3-card-4" style="width:30%">
-        <div class="w3-container w3-center">
-                <p>Picture 3</p>
-        </div>
-    </div>
-    <div class="w3-card-4" style="width:30%">
-        <div class="w3-container w3-center">
-                <p>Picture 4</p>
-        </div>
-    </div>
-    <div class="w3-card-4" style="width:30%">
-        <div class="w3-container w3-center">
-                <p>Picture 5</p>
-        </div>
-    </div>
-    <div class="w3-card-4" style="width:30%">
-        <div class="w3-container w3-center">
-                <p>Picture 6</p>
-        </div>
-    </div>
-    <div class="w3-card-4" style="width:30%">
-        <div class="w3-container w3-center">
-                <p>Picture 7</p>
-        </div>
-    </div>
-    <div class="w3-card-4" style="width:30%">
-        <div class="w3-container w3-center">
-                <p>Picture 8</p>
-        </div>
-    </div>
-    <div class="w3-card-4" style="width:30%">
-        <div class="w3-container w3-center">
-                <p>Picture 9</p>
-        </div>
-    </div>
+    <% })%>
+<% }) %>
 </div>
 
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">
@@ -91,7 +55,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </footer>
 
 <script>
-// Used to toggle the menu on small screens when clicking on the menu button
 function myFunction() {
     let nav = document.getElementById("navDemo");
     if (nav.className.indexOf("w3-show") == -1) {

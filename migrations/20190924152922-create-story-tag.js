@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      TagsId: {
+      TagId: {
         type: Sequelize.INTEGER
       },
       StoryId: {
