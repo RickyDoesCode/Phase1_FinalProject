@@ -42,8 +42,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
                 <a href="/user/signUp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-right">Sign Up</a>
             </div>
     </div>
-    <form class="form" method="POST" action="/post/<%=id%>/add" style="margin-top: 5rem; padding: 5%;">
+    <form class="form" method="POST" action="/post/<%= story.UserId %>/edit/<%=story.id%>" style="margin-top: 5rem; padding: 5%;">
         <textarea name = "posted">
+          <%= story.content %>
         </textarea>
         <input type="submit" class="w3-button w3-block w3-section w3-red w3-ripple w3-padding" style="width:30%; margin-left: 2rem;" value="Submit">
     </form>
