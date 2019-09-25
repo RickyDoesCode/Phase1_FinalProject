@@ -5,6 +5,13 @@ class UserController {
     static show(obj = {}) {
         return User.findAll(obj)
     }
+    static findOnline() {
+        return this.show({
+            where: {
+                status : true
+            }
+        })
+    }
     static create(name, email, password, salt) {
         return User.create({
             name: name,

@@ -13,7 +13,9 @@ class PostController {
     static add(body, id){
       return Story.create({
         content: body,
-        UserId: id
+        UserId: id,
+        createdAt: new Date(),
+        updatedAt: new Date()
       })
     }
 

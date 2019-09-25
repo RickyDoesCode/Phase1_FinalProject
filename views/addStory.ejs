@@ -32,20 +32,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     </script>
 </head>
 <body>
-    <div class="w3-top">
-            <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-                <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-                <a href="/" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
-                <a href="/story" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Stories</a>
-                <a href="/story/posts" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">My Posts</a>
-                <a href="/user/logIn" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-right">Log In</a>
-                <a href="/user/signUp" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-right">Sign Up</a>
-            </div>
-    </div>
-    <form class="form" method="POST" action="/post/<%=id%>/add" style="margin-top: 5rem; padding: 5%;">
+    <%- include('partials/navbar', {user}) %>
+
+    <form class="form" method="POST" action="/story/posts/<%=id%>/add" style="margin-top: 5rem; padding: 5%;">
         <textarea name = "posted">
         </textarea>
-        <input type="submit" class="w3-button w3-block w3-section w3-red w3-ripple w3-padding" style="width:30%; margin-left: 2rem;" value="Submit">
+        <% tags.forEach(tag => { %>
+        <div class="w3-third">
+            <p>
+                <input class="w3-check" type="checkbox" name="<%= tag.name %>">
+                <label><%= tag.name %></label>
+            </p>
+        </div>
+        <% }) %>
+        <div class="w3-container">
+            <input type="submit" class="w3-button w3-block w3-section w3-red w3-ripple w3-padding" style="width:30%; margin-left: 2rem;" value="Submit">
+        </div>
     </form>
     <%- include('partials/footer') %>
 </body>

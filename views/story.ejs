@@ -21,31 +21,35 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <h1 class="w3-margin w3-jumbo">STORIES</h1>
 </header>
 
+
+    <form method="POST" action="/story/filter">
+        <% tags.forEach(tag => { %>
+            <div class="w3-third">
+                <p>
+                    <input class="w3-check" type="checkbox" name="<%= tag.name %>">
+                    <label><%= tag.name %>></label>
+                </p>
+            </div>
+            <% }) %>
+            <input class="w3-btn w3-red" type="submit" value="Search">
+    </form>
+
+
 <div class="w3-row-padding w3-padding-64 w3-container">
-<%  tags.forEach(tag => { %>
-    <% tag.Stories.forEach(story => { %>
-        <div class="w3-card-4" style="width:30%">
+    <%  stories.forEach(story => { %>
+        <div class="w3-col s4 w3-card-4" style="width:30%">
             <div class="w3-container w3-center">
                 <h1>STORY<%= story.id %></h1>
-                    <a href="/story/<%= story.id %>">Read More>></a>
+                <a href="/story/<%= story.id %>">Read More>></a>
+                <% story.Tags.forEach(tag => { %>
+                    <p><span class="w3-tag w3-red"><%= tag.name %></span></p>
+                <% }) %>
             </div>
         </div>
     <% })%>
-<% }) %>
 </div>
 
 <%- include('partials/footer') %>
-
-<script>
-function myFunction() {
-    let nav = document.getElementById("navDemo");
-    if (nav.className.indexOf("w3-show") == -1) {
-        nav.className += " w3-show";
-    } else {
-        nav.className = nav.className.replace(" w3-show", "");
-    }
-}
-</script>
 
 </body>
 </html>

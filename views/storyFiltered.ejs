@@ -15,23 +15,24 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <body>
 
 
-<%- include('partials/navbar', {user}) %>
+    <%- include('partials/navbar', {user}) %>
 
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
-    <h1 class="w3-margin w3-jumbo">WELCOME TO</h1>
-    <p class="w3-xlarge">The Story HeadQuarters</p>
+    <h1 class="w3-margin w3-jumbo">STORIES</h1>
 </header>
 
 <div class="w3-row-padding w3-padding-64 w3-container">
-    <div class="w3-card-4" style="width:80%; margin: auto;">
-        <div class="w3-container w3-center">
-                <p class="w3-xlarge">
-                    This is the homepage<br>
-                    Feel free to explore more<br>
-                    Hope you enjoyed!
-                </p>
+    <%  stories.forEach(story => { %>
+        <div class="w3-col s4 w3-card-4" style="width:30%">
+            <div class="w3-container w3-center">
+                <h1>STORY<%= story.id %></h1>
+                <a href="/story/<%= story.id %>">Read More>></a>
+                <% story.Tags.forEach(tag => { %>
+                    <p><span class="w3-tag w3-red"><%= tag.name %></span></p>
+                <% }) %>
+            </div>
         </div>
-    </div>
+    <% })%>
 </div>
 
 <%- include('partials/footer') %>

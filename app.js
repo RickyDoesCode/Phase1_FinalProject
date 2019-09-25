@@ -12,6 +12,6 @@ app.set('view engine', 'ejs')
 app.use('/', homeRouter)
 app.use('/user', userRouter)
 app.use('/story', storyRouter)
-app.use('/post', postRouter)
+app.use('/story/posts', postRouter)
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`))

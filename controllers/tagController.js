@@ -38,6 +38,17 @@ class TagController {
             })
         })
     }
+
+    static findByTagName(TagName) {
+        return this.show({
+            where: {
+                name: TagName
+            }
+        })
+        .then(tag => {
+            return tag[0]
+        })
+    }
 }
 
 module.exports = TagController
