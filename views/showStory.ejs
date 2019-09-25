@@ -17,27 +17,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <%- include('partials/navbar', {user}) %>
 
-<header class="w3-container w3-red w3-center" style="padding:128px 16px">
-    <h1 class="w3-margin w3-jumbo">WELCOME TO</h1>
-    <p class="w3-xlarge">The Story HeadQuarters</p>
+<header class="w3-container w3-red w3-center" style="padding:80px 16px">
+    <h1 class="w3-margin w3-xxlarge">STORY <%= story.id %></h1>
 </header>
 
 <div class="w3-row-padding w3-padding-64 w3-container">
     <div class="w3-card-4" style="width:80%; margin: auto;">
-        <div class="w3-container w3-center">
-                <p class="w3-xlarge">
-                    This is the homepage<br>
-                    Feel free to explore more<br>
-                    Hope you enjoyed!
-                </p>
-        </div>
+            <div class="w3-container w3-center" style="min-height: 100px;">
+                    <%- story.content%>
+                </div>
+            </div>
+            <a href="/story" style="padding-left: 10%;">Back>></a>
     </div>
-</div>
 
-<%- include('partials/footer') %>
+    <%- include('partials/footer') %>
 
 <script>
-// Used to toggle the menu on small screens when clicking on the menu button
 function myFunction() {
     let nav = document.getElementById("navDemo");
     if (nav.className.indexOf("w3-show") == -1) {

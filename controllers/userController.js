@@ -2,8 +2,8 @@ const Model = require('../models')
 const User = Model.User
 
 class UserController {
-    static show() {
-        return User.findAll()
+    static show(obj = {}) {
+        return User.findAll(obj)
     }
     static create(name, email, password, salt) {
         return User.create({
@@ -17,7 +17,7 @@ class UserController {
         })
     }
     static findByEmail(email) {
-        return User.findAll({
+        return this.show({
             where: {
                 email: email
             }
