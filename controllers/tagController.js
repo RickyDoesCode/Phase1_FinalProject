@@ -13,11 +13,28 @@ class TagController {
     static filterByTag(Tag) {
         let filteredStories = []
         return this.showWithStories()
-        .then(arr => {
-            arr.forEach(tag => {
+        .then(tags => {
+            tags.forEach(tag => {
                 if (tag.name.toLowerCase() === Tag.toLowerCase()) {
-                    filteredStories.push(tag)
+                    let storiesArr = tag.Stories
+                    storiesArr.forEach(story => {
+                        filteredStories.push(story)
+                    })
                 }
+            })
+        })
+    }
+    static filterByUserId(id) {
+        let filteredStories = []
+        return this.showWithStories()
+        .then(tags => {
+            tags.forEach(tag => {
+                let storiesArr = tag.Stories
+                storiesArr.forEach(story => {
+                    if (story.UserId === id) {
+                        filteredStories.push(story)
+                    }
+                })
             })
         })
     }

@@ -6,6 +6,7 @@ const TagController = require('../controllers/tagController')
 storyRouter.get('/', (req, res) => {
     TagController.showWithStories()
     .then(tags => {
+        res.send(tags)
         res.render('story', {tags})
     })
     .catch(err => res.send(err))
