@@ -34,7 +34,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <body>
     <%- include('partials/navbar', {user}) %>
 
-    <form class="form" method="POST" action="/post/<%= story.UserId + 1 %>/edit/<%=story.id%>" style="margin-top: 5rem; padding: 5%;">
+    <form class="form" method="POST" action="/post/<%= story.UserId %>/edit/<%=story.id%>" style="margin-top: 5rem; padding: 5%;">
         <textarea name = "posted">
             <%= story.content %>
         </textarea>

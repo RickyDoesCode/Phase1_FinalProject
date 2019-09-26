@@ -63,7 +63,7 @@ postRouter.post('/:id/add', (req, res) => {
 postRouter.get('/:id/edit/:storyId', (req,res) =>{
   PostController.findOne(req.params.storyId)
   .then(story => {
-    if (req.session.user) {
+    if (req.session.user && req.session.user.id === req.params.id) {
       res.render('editStory', {story, user: req.session.user})
     } else {
       res.render('editStory', {story, user: null})
