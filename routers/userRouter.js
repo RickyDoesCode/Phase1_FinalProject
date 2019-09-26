@@ -2,6 +2,7 @@ const hashPassword = require('../helpers/hashPassword')
 const express = require('express')
 const userRouter = express.Router()
 const userController = require('../controllers/userController')
+const bcrypt = require('bcrypt')
 
 userRouter.get('/logIn', (req, res) => {
     res.render('userLogIn')
@@ -11,12 +12,13 @@ userRouter.post('/logIn', (req, res) => {
     userController.findByEmail(req.body.email)
     .then(user => {
         if (user) {
-            let hashed = hashPassword(req.body.password, user.salt)
-            if (hashed === user.password) {
+            if (bcrypt.compareSync(req.body.password, user.password)) {
                 req.session.user = user
+            } else {
+                redirect('/user/logIn')
             }
         } else {
-            throw new Error('User not found')
+            res.redirect('/user/logIn')
         }
     })
     .then(() => {
@@ -32,7 +34,7 @@ userRouter.post('/logIn', (req, res) => {
         res.render('home', {user:req.session.user})
     })
     .catch(err => {
-        res.send(err)
+        res.redirect('/user/logIn')
     })
 })
 
@@ -40,12 +42,10 @@ userRouter.get('/signUp', (req, res) => {
     res.render('userSignUp')
 })
 userRouter.post('/signUp', (req, res) => {
-    let random = String(Math.random() * 10000)
     userController.create(
         req.body.name,
         req.body.email,
-        req.body.password,
-        random
+        req.body.password
     )
     .then(user => {
         if (user) {
@@ -57,7 +57,7 @@ userRouter.post('/signUp', (req, res) => {
         }
     })
     .catch(err => {
-        res.send(err)
+        res.redirect('/user/signUp')
     })
 })
 

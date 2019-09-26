@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true,
       validate: {
-        isEmail: true,
         notEmpty: true
       }
     },
@@ -24,14 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    salt: DataTypes.STRING,
     status: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'User',
     hooks: {
       beforeCreate: (user, options) => {
-        const hashed = hashPassword(user.password, user.salt)
+        const hashed = hashPassword(user.password)
         user.password = hashed
       }
     }

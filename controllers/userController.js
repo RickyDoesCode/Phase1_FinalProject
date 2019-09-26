@@ -15,14 +15,13 @@ class UserController {
             }
         })
     }
-    static create(name, email, password, salt) {
+    static create(name, email, password) {
         return User.create({
             name: name,
             email: email,
             password: password,
             createdAt: new Date(),
             updatedAt: new Date(),
-            salt: salt,
             status: true
         })
     }

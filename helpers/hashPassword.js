@@ -1,9 +1,8 @@
-const hashPassword = (password, salt) => {
-    const crypto = require('crypto');
-    const hash = crypto.createHmac('sha256', salt)
-            .update(password)
-            .digest('hex');
-    return hash
+const hashPassword = (password) => {
+    const bcrypt = require('bcrypt');
+    const saltRounds = 10
+    const salt = bcrypt.genSaltSync(saltRounds);
+    return bcrypt.hashSync(password, salt);
 }
 
 module.exports = hashPassword
