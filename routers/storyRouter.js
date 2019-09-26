@@ -42,7 +42,7 @@ storyRouter.post('/filter', (req, res) => {
                     count++
                 })
             })
-            if (count === 5) {
+            if (count === 7) {
                 if (req.session.user) {
                     res.render('storyFiltered', { stories: temp, user : req.session.user })
                 } else {
