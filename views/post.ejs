@@ -29,8 +29,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
                     <% post.Tags.forEach(tag => { %>
                         <p><span class="w3-tag w3-red"><%= tag.name %></span></p>
                     <% }) %>
-                    <a class="w3-left" href="/story/posts/<%= user.id %>/edit/<%= index + 1 %>">Edit</a>
-                    <a class="w3-right" href="/story/posts/<%= user.id %>/delete/<%= index + 1 %>">Delete</a>
+                    <a class="w3-left" href="/story/posts/<%= user.id %>/edit/<%= post.id %>">Edit</a>
+                    <a class="w3-right" href="/story/posts/<%= user.id %>/delete/<%= post.id %>">Delete</a>
             </div>
         </div>
     <% })%>
