@@ -35,44 +35,39 @@ storyRouter.get('/', (req, res) => {
 storyRouter.get('/filter', (req, res) => {})
 
 storyRouter.post('/filter', (req, res) => {
-    let userData = null
-    UserController.show({
-        where: {
-            status: true
-        }
-    })
-    .then(user => {
-        user = user[0]
-        userData = user
-    })
-    .catch(err => res.send(err))
-
-
     let arrOfTags = []
     for (let tagName in req.body) {
         if (req.body[tagName] === 'on') {
             arrOfTags.push({name: tagName})
         }
     }
-    let i = 1
     let temp = []
-    arrOfTags.forEach(tag => {
+    arrOfTags.forEach((tag) => {
         let name = tag.name
+        let count = 0
         StoryController.showWithTags(arrOfTags)
-        .then(stories => {
-            stories.forEach(story => {
+        .then((stories) => {
+            stories.forEach((story) => {
                 story.Tags.forEach(tag => {
                     if (tag.name === name && temp.indexOf(story) === -1) {
-                        temp.push(story.dataValues)
+                        temp.push(story)
                     }
+                    count++
                 })
             })
-            i++
-            if (i === stories.length + 1) {
-                if (userData === {}){
-                    user = null
-                }
-                res.render('storyFiltered', { stories, tags: temp, user : userData })
+            if (count === 5) {
+                let userData = null
+                UserController.show({
+                    where: {
+                        status: true
+                    }
+                })
+                .then(user => {
+                    user = user[0]
+                    user ? userData=user : ''
+                })
+                .catch(err => {throw new Error(err)})
+                res.render('storyFiltered', { stories, stories: temp, user : userData })
             }
         })
         .catch(err => res.send(err))
