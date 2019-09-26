@@ -3,7 +3,7 @@ const Story = Model.Story
 
 class PostController {
     static findById(id) {
-        return Story.findOne({
+        return Story.findAll({
           where: {
             UserId: id
           },
