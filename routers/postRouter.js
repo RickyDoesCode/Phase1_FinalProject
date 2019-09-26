@@ -8,7 +8,7 @@ const StoryTagController = require('../controllers/storyTagController')
 
 postRouter.get('/:id', (req, res) => {
   PostController.findById(req.params.id)
-    .then(posts => {
+  .then(posts => {
       if (req.session.user) {
           res.render('post', {posts, user : req.session.user })
         } else {

@@ -36,10 +36,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 
 <div class="w3-row-padding w3-padding-64 w3-container">
-    <%  stories.forEach(story => { %>
+    <%  stories.forEach((story, index) => { %>
         <div class="w3-col s4 w3-card-4" style="width:30%">
             <div class="w3-container w3-center">
-                <h1>STORY<%= story.id %></h1>
+                <h1>STORY<%= index + 1 %></h1>
                 <a href="/story/<%= story.id %>">Read More>></a>
                 <% story.Tags.forEach(tag => { %>
                     <p><span class="w3-tag w3-red"><%= tag.name %></span></p>
