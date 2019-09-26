@@ -5,12 +5,12 @@ const UserController = require('../controllers/userController')
 homeRouter.get('/', (req, res) => {
     UserController.findOnline()
     .then(user => {
-        if (user.length === 0) {
-            user = null
+        if (user) {
+            req.session.user = user
+            res.render('home', { user : req.session.user })
         } else {
-            user = user[0]
+            res.render('home', {user : null})
         }
-        res.render('home', { user })
     })
 })
 

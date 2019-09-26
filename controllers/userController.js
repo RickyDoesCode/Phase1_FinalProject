@@ -5,8 +5,11 @@ class UserController {
     static show(obj = {}) {
         return User.findAll(obj)
     }
+    static find(obj = {}) {
+        return User.findOne(obj)
+    }
     static findOnline() {
-        return this.show({
+        return this.find({
             where: {
                 status : true
             }

@@ -5,31 +5,18 @@ const StoryController = require('../controllers/storyController')
 const UserController = require('../controllers/userController')
 
 storyRouter.get('/', (req, res) => {
-    let userData = null
-    UserController.show({
-        where: {
-            status: true
-        }
-    })
-    .then(user => {
-        user = user[0]
-        userData = user
-    })
-    .catch(err => res.send(err))
-
     TagController.showWithStories()
     .then(tags => {
-        tagsData = tags
+        StoryController.showWithTags()
+        .then(stories => {
+            if (req.session.user) {
+                res.render('story', { stories, tags, user : req.session.user})
+            } else {
+                res.render('story', { stories, tags, user : null })
+            }
+        })
+        .catch(err => res.send(err))
     })
-
-    StoryController.showWithTags()
-    .then(stories => {
-        if (userData === {}){
-            user = null
-        }
-        res.render('story', { stories, tags: tagsData, user : userData })
-    })
-    .catch(err => res.send(err))
 })
 
 storyRouter.get('/filter', (req, res) => {})
@@ -56,18 +43,11 @@ storyRouter.post('/filter', (req, res) => {
                 })
             })
             if (count === 5) {
-                let userData = null
-                UserController.show({
-                    where: {
-                        status: true
-                    }
-                })
-                .then(user => {
-                    user = user[0]
-                    user ? userData=user : ''
-                })
-                .catch(err => {throw new Error(err)})
-                res.render('storyFiltered', { stories, stories: temp, user : userData })
+                if (req.session.user) {
+                    res.render('storyFiltered', { stories: temp, user : req.session.user })
+                } else {
+                    res.render('storyFiltered', { stories: temp, user : null })
+                }
             }
         })
         .catch(err => res.send(err))
@@ -75,22 +55,14 @@ storyRouter.post('/filter', (req, res) => {
 })
 
 storyRouter.get('/:storyId', (req, res) => {
-    let userData = null
-    UserController.show({
-        where: {
-            status: true
-        }
-    })
-    .then(user => {
-        user = user[0]
-        userData = user
-    })
-    .catch(err => res.send(err))
-
     StoryController.findById(req.params.storyId)
     .then(story => {
         story = story[0]
-        res.render('showStory', { story, user : userData })
+        if (req.session.user) {
+            res.render('showStory', { story, user : req.session.user })
+        } else {
+            res.render('showStory', { story, user : null })
+        }
     })
     .catch(err => res.send(err))
 })

@@ -6,7 +6,8 @@ class PostController {
         return Story.findAll({
           where: {
             UserId: id
-          }
+          },
+          include: [Model.Tag]
         })
     }
 

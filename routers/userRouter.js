@@ -8,30 +8,28 @@ userRouter.get('/logIn', (req, res) => {
 })
 
 userRouter.post('/logIn', (req, res) => {
-    let userData = null
     userController.findByEmail(req.body.email)
     .then(user => {
         if (user) {
             let hashed = hashPassword(req.body.password, user.salt)
             if (hashed === user.password) {
-                return user
+                req.session.user = user
             }
         } else {
             throw new Error('User not found')
         }
     })
-    .then(user => {
-        userData = user
+    .then(() => {
         return userController.update({
             status: true
         }, {
             where: {
-                id: userData.id
+                id: req.session.user.id
             }
         })
     })
     .then(() => {
-        res.render('home', {user:userData})
+        res.render('home', {user:req.session.user})
     })
     .catch(err => {
         res.send(err)
@@ -39,15 +37,6 @@ userRouter.post('/logIn', (req, res) => {
 })
 
 userRouter.get('/signUp', (req, res) => {
-    // const data = {}
-    // const error = req.query.error
-    // if(error){
-    //     data.err = error
-    // }
-    // else{
-    //     data.err = null
-    // }
-    // res.render('userSignUp', data)
     res.render('userSignUp')
 })
 userRouter.post('/signUp', (req, res) => {
@@ -60,7 +49,8 @@ userRouter.post('/signUp', (req, res) => {
     )
     .then(user => {
         if (user) {
-            res.render('home', {user})
+            req.session.user = user
+            res.render('home', { user: req.session.user })
         }
         else {
             res.status(404).send('Error in inserting new record');
@@ -72,20 +62,23 @@ userRouter.post('/signUp', (req, res) => {
 })
 
 userRouter.get('/:id/logOut', (req, res) => {
-    res.redirect('/')
+    if (!req.session.user) {
+        res.redirect('/')
+    }
 })
 
 userRouter.post('/:id/logOut', (req, res) => {
-    let userId = req.params.id
     userController.update({
         status: false
     }, {
         where: {
-            id: userId
+            id: req.session.user.id
         }
     })
     .then(()=> {
-        res.redirect('/')
+        req.session.destroy(() => {
+            res.redirect('/')
+        })
     })
 })
 

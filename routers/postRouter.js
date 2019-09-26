@@ -7,40 +7,25 @@ const StoryController = require('../controllers/storyController')
 const StoryTagController = require('../controllers/storyTagController')
 
 postRouter.get('/:id', (req, res) => {
-  let userData = null
-    UserController.show({
-        where: {
-            status: true
-        }
-    })
-    .then(user => {
-        user = user[0]
-        userData = user
-    })
-    .catch(err => res.send(err))
-
-    PostController.findById(req.params.id)
+  PostController.findById(req.params.id)
     .then(posts => {
-        res.render('post', {posts, user : userData })
+      if (req.session.user) {
+          res.render('post', {posts, user : req.session.user })
+        } else {
+          res.redirect('/')
+        }
     })
     .catch(err => res.send(err))
 })
 
 postRouter.get('/:id/add', (req, res) => {
-  let userData = null
-    UserController.show({
-        where: {
-            status: true
-        }
-    })
-    .then(user => {
-        user = user[0]
-        userData = user
-    })
-    .catch(err => res.send(err))
-    TagController.show()
-    .then(tags => {
-      res.render('addStory', {id: req.params.id, user: userData, tags})
+  TagController.show()
+  .then(tags => {
+    if (req.session.user) {
+      res.render('addStory', {id: req.params.id, user: req.session.user, tags})
+    } else {
+      res.render('addStory', {id: req.params.id, user: null, tags})
+    }
     })
 })
 
@@ -76,21 +61,13 @@ postRouter.post('/:id/add', (req, res) => {
 })
 
 postRouter.get('/:id/edit/:storyId', (req,res) =>{
-  let userData = null
-    UserController.show({
-        where: {
-            status: true
-        }
-    })
-    .then(user => {
-        user = user[0]
-        userData = user
-    })
-    .catch(err => res.send(err))
-
   PostController.findOne(req.params.storyId)
   .then(story => {
-    res.render('editStory', {story, user: userData})
+    if (req.session.user) {
+      res.render('editStory', {story, user: req.session.user})
+    } else {
+      res.render('editStory', {story, user: null})
+    }
   })
 })
 
