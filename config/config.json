@@ -5,5 +5,19 @@
     "database": "blog_database",
     "host": "127.0.0.1",
     "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": 123456,
+    "database": "blog_database",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "psnwpmlhumfszq",
+    "password": "fa63a5ab9ee19bcf77b6ffaa6299fc8e6a342bc977510969e1f337b769cd4c4c",
+    "database": "da4375028dmo9p",
+    "host": "ec2-50-19-95-77.compute-1.amazonaws.com",
+    "dialect": "postgres"
   }
 }

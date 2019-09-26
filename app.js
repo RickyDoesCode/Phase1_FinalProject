@@ -5,7 +5,7 @@ const homeRouter = require('./routers/homeRouter')
 const userRouter = require('./routers/userRouter')
 const storyRouter = require('./routers/storyRouter')
 const postRouter = require('./routers/postRouter')
-const PORT = 3000
+const port = process.env.PORT || 3000
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
     secret: 'keyboard cat',
@@ -22,4 +22,4 @@ app.use('/user', userRouter)
 app.use('/story', storyRouter)
 app.use('/story/posts', postRouter)
 
-app.listen(PORT, () => console.log(`listening on port ${PORT}`))
+app.listen(port, () => console.log(`listening on port ${port}`))
