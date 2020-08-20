@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/AudrickOng/Phase1_FinalProject#readme",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
